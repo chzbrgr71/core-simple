@@ -29,19 +29,18 @@ namespace WebApp
 
             app.Run(async (context) =>
             {
-                // Call API backend container to get values
-                //backend_svc_ip = Environment.GetEnvironmentVariable("BACKEND_IP");
-                string backend_svc_ip = "http://localhost:5001";
-
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(backend_svc_ip);
-                
+                // Gather values for frontend service 
                 string appVersion = "1.0.5";
-                
                 string frontendName = Environment.MachineName;
                 //string frontendIP = Dns.GetHostAddressesAsync(frontendName);
                 string frontendIP = "10.10.10.1";
                 
+                // Call backend API container to gather values
+                string backend_svc_ip = Environment.GetEnvironmentVariable("BACKEND_IP");
+                string backend_svc_port = Environment.GetEnvironmentVariable("BACKEND_PORT");
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("http://" + backend_svc_ip + ":" + backend_svc_port);
                 string backendIP = await client.GetStringAsync("/config/getip");
                 string backendName = await client.GetStringAsync("/config/getname");
 
