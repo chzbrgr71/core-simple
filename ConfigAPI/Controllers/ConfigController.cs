@@ -1,4 +1,6 @@
 using System;
+using System.Net;
+using System.Net.Sockets;
 using Microsoft.AspNetCore.Mvc;
  
 namespace ConfigAPI.Controllers 
@@ -12,8 +14,19 @@ namespace ConfigAPI.Controllers
         public ContentResult GetMachineIP()
         {
             // Gather values for result
-            string machineIP = "TBD";
-            return Content(machineIP);
+            var hostName = Dns.GetHostName();
+            var ips = Dns.GetHostAddressesAsync(hostName).Result;
+            var addresses = "";
+
+            foreach (var ip in ips)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    addresses = addresses + " / " + ip;
+                }
+            }
+            addresses = addresses.Remove(0,3);
+            return Content(addresses);
         }
 
         [HttpGet("getname")]

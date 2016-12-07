@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Net.Sockets;
 using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,13 +33,21 @@ namespace WebApp
                 // Gather values for frontend service 
                 string appVersion = "1.0.5";
                 string frontendName = Environment.MachineName;
-                //string frontendIP = Dns.GetHostAddressesAsync(frontendName);
-                string frontendIP = "TBD";
+                var ips = Dns.GetHostAddressesAsync(frontendName).Result;
+                var addresses = "";
+
+                foreach (var ip in ips)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        addresses = addresses + " / " + ip;
+                    }
+                }
+                string frontendIP = addresses.Remove(0,3);
                 
                 // Call backend API container to gather values
                 string backend_svc_ip = Environment.GetEnvironmentVariable("BACKEND_IP");
                 string backend_svc_port = Environment.GetEnvironmentVariable("BACKEND_PORT");
-                //await context.Response.WriteAsync("<h2>URI: " + "http://" + backend_svc_ip + ":" + backend_svc_port);
                 
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://" + backend_svc_ip + ":" + backend_svc_port);
