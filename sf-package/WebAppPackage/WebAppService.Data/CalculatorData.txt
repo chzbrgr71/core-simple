@@ -1,0 +1,4 @@
+﻿[SupportedConstant]
+	pi=3.142
+	e=2.7182818284
+	Euler=0.577215

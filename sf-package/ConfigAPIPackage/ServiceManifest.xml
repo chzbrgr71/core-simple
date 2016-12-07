@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceManifest Name="CoreAPIServicePackage" Version="1.0" xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Description>Service that implements a container API Service</Description>
+    <ServiceTypes>
+        <StatelessServiceType ServiceTypeName="CoreAPIService"  UseImplicitHost="true"/>
+    </ServiceTypes>
+    <CodePackage Name="CoreAPIService.Code" Version="1.0">
+        <EntryPoint>
+          <ContainerHost>
+            <ImageName>chzbrgr71/core-api</ImageName>
+            <Commands></Commands>
+          </ContainerHost>
+        </EntryPoint>
+    </CodePackage>
+    <ConfigPackage Name="CoreAPIService.Config" Version="1.0" />
+    <DataPackage Name="CoreAPIService.Data" Version="1.0" />
+  <Resources>
+    <Endpoints>
+      <Endpoint Name="Endpoint1" Protocol="tcp" UriScheme="http"/>
+    </Endpoints>
+  </Resources>
+</ServiceManifest>

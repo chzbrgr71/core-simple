@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApplicationManifest ApplicationTypeName="core-simple" ApplicationTypeVersion="1.0" xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Description>Simple .NET Core containers to show multi-service communication</Description>
+    <Parameters>
+        <Parameter Name="ServiceInstanceCount" DefaultValue="3"></Parameter>
+    </Parameters>
+    <ServiceManifestImport>
+        <ServiceManifestRef ServiceManifestName="WebAppServicePackage" ServiceManifestVersion="1.0"/>
+      <EnvironmentOverrides CodePackageRef="WebAppService.Code">
+        <EnvironmentVariable Name="BACKEND_IP" Value="sflinux23.eastus.cloudapp.azure.com"/>
+        <EnvironmentVariable Name="BACKEND_PORT" Value="5001"/>
+      </EnvironmentOverrides>
+     <Policies>
+      <ContainerHostPolicies CodePackageRef="WebAppService.Code">
+        <PortBinding ContainerPort="5000" EndpointRef="Endpoint1"/>
+       </ContainerHostPolicies>
+   </Policies>
+    </ServiceManifestImport>
+  <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="CoreAPIServicePackage" ServiceManifestVersion="1.0"/>
+    <Policies>
+      <ContainerHostPolicies CodePackageRef="CoreAPIService.Code">
+        <PortBinding ContainerPort="5001" EndpointRef="Endpoint1"/>
+      </ContainerHostPolicies>
+    </Policies>
+  </ServiceManifestImport>
+    <ServiceTemplates>
+        <StatelessService ServiceTypeName="CoreAPIService" InstanceCount="2">
+            <SingletonPartition />
+        </StatelessService>
+      <StatelessService ServiceTypeName="WebAppService" InstanceCount="4" >
+        <SingletonPartition/>
+      </StatelessService>
+    </ServiceTemplates>
+</ApplicationManifest>
