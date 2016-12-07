@@ -16,7 +16,7 @@
     <DataPackage Name="CoreAPIService.Data" Version="1.0" />
   <Resources>
     <Endpoints>
-      <Endpoint Name="Endpoint1" Protocol="tcp" UriScheme="http"/>
+      <Endpoint Name="Endpoint1" UriScheme="http" Port="5001"/>
     </Endpoints>
   </Resources>
 </ServiceManifest>
