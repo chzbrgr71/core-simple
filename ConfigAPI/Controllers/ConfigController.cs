@@ -5,14 +5,14 @@ namespace ConfigAPI.Controllers
 { 
     [Route("config")]
     
-    public class ButtheadController : Controller 
+    public class ConfigController : Controller 
     {   
         [HttpGet("getip")]
         
         public ContentResult GetMachineIP()
         {
             // Gather values for result
-            string machineIP = "192.168.1.1";
+            string machineIP = "TBD";
             return Content(machineIP);
         }
 

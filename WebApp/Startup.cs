@@ -33,12 +33,13 @@ namespace WebApp
                 string appVersion = "1.0.5";
                 string frontendName = Environment.MachineName;
                 //string frontendIP = Dns.GetHostAddressesAsync(frontendName);
-                string frontendIP = "10.10.10.1";
+                string frontendIP = "TBD";
                 
                 // Call backend API container to gather values
                 string backend_svc_ip = Environment.GetEnvironmentVariable("BACKEND_IP");
                 string backend_svc_port = Environment.GetEnvironmentVariable("BACKEND_PORT");
-
+                //await context.Response.WriteAsync("<h2>URI: " + "http://" + backend_svc_ip + ":" + backend_svc_port);
+                
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://" + backend_svc_ip + ":" + backend_svc_port);
                 string backendIP = await client.GetStringAsync("/config/getip");
