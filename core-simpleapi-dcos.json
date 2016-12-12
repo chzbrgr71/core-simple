@@ -1,0 +1,39 @@
+{
+  "id": "/core-api",
+  "cmd": null,
+  "cpus": 0.1,
+  "mem": 65,
+  "disk": 0,
+  "instances": 3,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "chzbrgr71/core-api",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 5001,
+          "hostPort": 0,
+          "servicePort": 10101,
+          "protocol": "tcp",
+          "name": "api",
+          "labels": {
+            "VIP_0": "172.16.23.23:8080"
+          }
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "portDefinitions": [
+    {
+      "port": 10101,
+      "protocol": "tcp",
+      "name": "api",
+      "labels": {}
+    }
+  ]
+}

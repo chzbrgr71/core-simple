@@ -1,0 +1,33 @@
+{
+  "id": "core-web",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "chzbrgr71/core-web",
+      "network": "BRIDGE",
+      "portMappings": [
+        { "hostPort": 0, "containerPort": 5000, "servicePort": 10000 }
+      ],
+      "forcePullImage":true
+    }
+  },
+  "env": {
+    "BACKEND_IP": "172.16.23.23",
+    "BACKEND_PORT": "8080"
+         },
+  "instances": 5,
+  "cpus": 0.1,
+  "mem": 65,
+  "healthChecks": [{
+      "protocol": "HTTP",
+      "path": "/",
+      "portIndex": 0,
+      "timeoutSeconds": 10,
+      "gracePeriodSeconds": 10,
+      "intervalSeconds": 2,
+      "maxConsecutiveFailures": 10
+  }],
+  "labels":{
+    "HAPROXY_GROUP":"external"
+  }
+}
