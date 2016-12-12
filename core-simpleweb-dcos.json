@@ -18,15 +18,6 @@
   "instances": 5,
   "cpus": 0.1,
   "mem": 65,
-  "healthChecks": [{
-      "protocol": "HTTP",
-      "path": "/",
-      "portIndex": 0,
-      "timeoutSeconds": 10,
-      "gracePeriodSeconds": 10,
-      "intervalSeconds": 2,
-      "maxConsecutiveFailures": 10
-  }],
   "labels":{
     "HAPROXY_GROUP":"external"
   }
