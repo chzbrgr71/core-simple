@@ -9,7 +9,7 @@
     "type": "DOCKER",
     "volumes": [],
     "docker": {
-      "image": "chzbrgr71/core-api",
+      "image": "chzbrgr71/core-api:dcos",
       "network": "BRIDGE",
       "portMappings": [
         {

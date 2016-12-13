@@ -3,7 +3,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "chzbrgr71/core-web",
+      "image": "chzbrgr71/core-web:dcos",
       "network": "BRIDGE",
       "portMappings": [
         { "hostPort": 0, "containerPort": 5000, "servicePort": 10000 }
