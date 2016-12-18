@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sf-cddemo
+  labels:
+    app: cddemo
+spec:
+  containers:
+    - name: sf-cddemo
+      image: briarregistry-microsoft.azurecr.io/samples/sf-cddemo
+      ports:
+        - containerPort: 8001
