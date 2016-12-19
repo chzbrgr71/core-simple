@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: core-api
+  labels:
+    app: core-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 5001
+  clusterIP: 10.0.176.131
+  selector:
+    run: core-api
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: core-api
+spec:
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        run: core-api
+        app: core-api
+    spec:
+      containers:
+      - name: core-api
+        image: chzbrgr71/core-api:kube
+        ports:
+          - containerPort: 5001
