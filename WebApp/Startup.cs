@@ -31,7 +31,7 @@ namespace WebApp
             app.Run(async (context) =>
             {
                 // Gather values for frontend service 
-                string appVersion = "1.8.1";
+                string appVersion = "1.8.2";
                 string frontendName = Environment.MachineName;
                 var ips = Dns.GetHostAddressesAsync(frontendName).Result;
                 var addresses = "";
@@ -48,7 +48,7 @@ namespace WebApp
                 // Call backend API container to gather values
                 string backend_svc_ip = Environment.GetEnvironmentVariable("BACKEND_IP");
                 string backend_svc_port = Environment.GetEnvironmentVariable("BACKEND_PORT");
-                string acs_orchestrator = "Kubernetes";
+                string acs_orchestrator = "k8s";
                 
                 var client = new HttpClient();
                 client.BaseAddress = new Uri("http://" + backend_svc_ip + ":" + backend_svc_port);
