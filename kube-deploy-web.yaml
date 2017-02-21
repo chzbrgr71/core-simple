@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: core-web
-        image: chzbrgr71/core-web:kube1
+        image: chzbrgr71/core-web:k8s
         env:
         - name: BACKEND_IP
           value: "10.0.176.131"

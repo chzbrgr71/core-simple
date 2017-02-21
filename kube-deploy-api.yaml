@@ -27,6 +27,6 @@ spec:
     spec:
       containers:
       - name: core-api
-        image: chzbrgr71/core-api:kube1
+        image: chzbrgr71/core-api:k8s
         ports:
           - containerPort: 5001
