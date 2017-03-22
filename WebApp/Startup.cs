@@ -31,7 +31,7 @@ namespace WebApp
             app.Run(async (context) =>
             {
                 // Gather values for frontend service 
-                string appVersion = "2.1.2";
+                string appVersion = "3.0.0";
                 string frontendName = Environment.MachineName;
                 var ips = Dns.GetHostAddressesAsync(frontendName).Result;
                 var addresses = "";
@@ -55,7 +55,7 @@ namespace WebApp
                 string backendIP = await client.GetStringAsync("/config/getip");
                 string backendName = await client.GetStringAsync("/config/getname");
 
-                await context.Response.WriteAsync("<h1>Simple Web App (" + acs_orchestrator + ")</h1>");
+                await context.Response.WriteAsync("<h1>Simple .NET Core Web App (" + acs_orchestrator + ")</h1>");
                 await context.Response.WriteAsync("<p>App version: " + appVersion);
                 await context.Response.WriteAsync("<br>");
                 await context.Response.WriteAsync("<p>Frontend: " + frontendName + " / " + frontendIP);

@@ -26,11 +26,13 @@ spec:
     spec:
       containers:
       - name: core-web
-        image: chzbrgr71/core-web:k8s
+        image: chzbrgr71/core-web
         env:
         - name: BACKEND_IP
           value: "10.0.176.131"
         - name: BACKEND_PORT
           value: "8080"
+        - name: ORCHESTRATOR
+          value: "Kubernetes"
         ports:
           - containerPort: 5000

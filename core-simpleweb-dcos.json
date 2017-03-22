@@ -3,7 +3,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "chzbrgr71/core-web:dcos",
+      "image": "chzbrgr71/core-web",
       "network": "BRIDGE",
       "portMappings": [
         { "hostPort": 0, "containerPort": 5000, "servicePort": 10000 }
@@ -13,7 +13,8 @@
   },
   "env": {
     "BACKEND_IP": "172.16.23.23",
-    "BACKEND_PORT": "8080"
+    "BACKEND_PORT": "8080",
+    "ORCHESTRATOR": "DC/OS"
          },
   "instances": 5,
   "cpus": 0.1,
