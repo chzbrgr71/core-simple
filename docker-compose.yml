@@ -7,7 +7,7 @@ services:
     links:
       - core-web
     ports:
-      - 8080:5001
+      - 5001:5001
     deploy:
       replicas: 3
 
@@ -17,6 +17,7 @@ services:
      - 80:5000
     environment:
       - BACKEND_IP=briarswarmmode.southcentralus.cloudapp.azure.com
-      - BACKEND_PORT=8080
+      - BACKEND_PORT=5001
+      - ORCHESTRATOR=Swarm
     deploy:
       replicas: 5
