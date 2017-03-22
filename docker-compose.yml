@@ -3,21 +3,21 @@ version: "3"
 services:
 
   core-api:
-    image: chzbrgr71/core-api:dcos
+    image: chzbrgr71/core-api:swarm
     links:
       - core-web
     ports:
       - 5001:5001
     deploy:
-      replicas: 3
+      replicas: 4
 
   core-web:
-    image: chzbrgr71/core-web:dcos
+    image: chzbrgr71/core-web:swarm
     ports:
      - 80:5000
     environment:
       - BACKEND_IP=briarswarmmode.southcentralus.cloudapp.azure.com
       - BACKEND_PORT=5001
-      - ORCHESTRATOR=Swarm
+      - ORCHESTRATOR=Swarm Mode
     deploy:
-      replicas: 5
+      replicas: 6
