@@ -16,7 +16,7 @@ services:
     ports:
      - 80:5000
     environment:
-      - BACKEND_IP=briarswarmmode.southcentralus.cloudapp.azure.com
+      - BACKEND_IP=core-simple_api
       - BACKEND_PORT=5001
       - ORCHESTRATOR=Swarm Mode
     deploy:
