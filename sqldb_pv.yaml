@@ -1,0 +1,67 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+  name: azure-disk
+provisioner: kubernetes.io/azure-disk
+parameters:
+  skuName: Standard_LRS
+  location: westus
+---
+apiVersion: "v1"
+kind: "PersistentVolumeClaim"
+metadata:
+  name: "sqldb-pv"
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "azure-disk"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "10Gi"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: core-sql
+spec:
+  template:
+    metadata:
+      labels:
+        app: core-sql
+        component: core-sql
+    spec:
+      containers:
+      - name: core-sql
+        image: microsoft/mssql-server-linux:ctp1-3
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: Pass@word
+        volumeMounts:
+        - mountPath: /var/opt/mssql
+          name: sqldb-home
+      volumes:
+      - name: sqldb-home
+        persistentVolumeClaim:
+          claimName: sqldb-pv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: core-sql
+    component: core-sql
+  name: core-sql
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 10023
+      targetPort: 1433
+      name: core-sql-port
+  selector:
+    app: core-sql
+    component: core-sql
