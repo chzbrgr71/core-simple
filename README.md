@@ -11,11 +11,37 @@ This is a basic set of .NET Core containers that help demonstrate container orch
 ## WebApp
 
 * Basic web application 
-* Requires 2 environment variables: BACKEND_IP and BACKEND_PORT
+* Requires 3 environment variables: BACKEND_IP, BACKEND_PORT, and ORCHESTRATOR.
 * docker build -t web .
-* docker run -d -e BACKEND_IP="192.168.99.100" -e BACKEND_PORT="5001" --name web -p 5000:5000 web
+* docker run -d -e BACKEND_IP="192.168.99.100" -e BACKEND_PORT="5001" -e ORCHESTRATOR="Docker" --name web -p 5000:5000 web
+
+## SQL on Linux
+
+* Coming soon
 
 ## Deployment
+
+### Kubernetes
+
+* Deploy with kubectl
+```
+kubectl run core-api --image chzbrgr71/core-api:kube --replicas=4
+kubectl expose deployment core-api --port=8080 --target-port=5001 --cluster-ip=10.0.176.131
+
+kubectl run core-web --image chzbrgr71/core-web:kube --replicas=5 --env="BACKEND_PORT=8080" --env="BACKEND_IP=10.0.176.131"
+kubectl expose deployment core-web --port=80 --target-port=5000 --type="LoadBalancer"
+```
+
+* Deploy with YAML
+```
+kubectl create -f ./kube-deploy.yaml
+```
+
+### Docker Swarm
+
+```
+docker-compose up
+```
 
 ### DCOS / Marathon
 
@@ -38,20 +64,4 @@ azure servicefabric application type register core-simple-package
 azure servicefabric application create fabric:/core-simple core-simple-type 1.0
 azure servicefabric service create --application-name fabric:/core-simple --service-name fabric:/core-simple/api --service-type-name CoreAPIService --instance-count 2 --service-kind Stateless --partition-scheme Singleton --placement-constraints "NodeType == backend"
 azure servicefabric service create --application-name fabric:/core-simple --service-name fabric:/core-simple/web --service-type-name WebAppService --instance-count 4 --service-kind Stateless --partition-scheme Singleton --placement-constraints "NodeType == frontend"
-```
-
-### Kubernetes
-
-* Deploy with kubectl
-```
-kubectl run core-api --image chzbrgr71/core-api:kube --replicas=4
-kubectl expose deployment core-api --port=8080 --target-port=5001 --cluster-ip=10.0.176.131
-
-kubectl run core-web --image chzbrgr71/core-web:kube --replicas=5 --env="BACKEND_PORT=8080" --env="BACKEND_IP=10.0.176.131"
-kubectl expose deployment core-web --port=80 --target-port=5000 --type="LoadBalancer"
-```
-
-* Deploy with YAML
-```
-kubectl create -f ./kube-deploy.yaml
 ```
