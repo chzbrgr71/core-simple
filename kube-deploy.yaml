@@ -64,7 +64,7 @@ spec:
         image: chzbrgr71/core-web
         env:
         - name: BACKEND_IP
-          value: "10.0.176.131"
+          value: "core-api.default.svc.cluster.local"
         - name: BACKEND_PORT
           value: "8080"
         - name: ORCHESTRATOR
