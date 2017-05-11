@@ -31,7 +31,7 @@ namespace WebApp
             app.Run(async (context) =>
             {
                 // Gather values for frontend service 
-                string appVersion = "3.2.0";
+                string appVersion = "3.2.1";
                 string frontendName = Environment.MachineName;
                 var ips = Dns.GetHostAddressesAsync(frontendName).Result;
                 var addresses = "";
