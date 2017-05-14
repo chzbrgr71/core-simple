@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
       - name: core-web
-        image: chzbrgr71/core-web
+        image: briarregistry-microsoft.azurecr.io/chzbrgr71/core-web
         env:
         - name: BACKEND_IP
           value: "core-api.default.svc.cluster.local"
@@ -71,3 +71,5 @@ spec:
           value: "Kubernetes"
         ports:
           - containerPort: 5000
+      imagePullSecrets:
+        - name: myregistrykey
