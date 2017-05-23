@@ -9,7 +9,6 @@ spec:
   ports:
   - port: 8080
     targetPort: 5001
-  clusterIP: 10.0.176.131
   selector:
     run: core-api
 ---
@@ -52,7 +51,7 @@ kind: Deployment
 metadata:
   name: core-web
 spec:
-  replicas: 5
+  replicas: 6
   template:
     metadata:
       labels:

@@ -15,10 +15,6 @@ This is a basic set of .NET Core containers that help demonstrate container orch
 * docker build -t web .
 * docker run -d -e BACKEND_IP="192.168.99.100" -e BACKEND_PORT="5001" -e ORCHESTRATOR="Docker" --name web -p 5000:5000 web
 
-## SQL on Linux
-
-* Coming soon
-
 ## Deployment
 
 ### Kubernetes
@@ -28,7 +24,7 @@ This is a basic set of .NET Core containers that help demonstrate container orch
 kubectl run core-api --image chzbrgr71/core-api:kube --replicas=4
 kubectl expose deployment core-api --port=8080 --target-port=5001 --cluster-ip=10.0.176.131
 
-kubectl run core-web --image chzbrgr71/core-web:kube --replicas=5 --env="BACKEND_PORT=8080" --env="BACKEND_IP=10.0.176.131"
+kubectl run core-web --image chzbrgr71/core-web:kube --replicas=5 --env="BACKEND_PORT=8080" --env="BACKEND_IP=10.0.176.131" --env="ORCHESTRATOR="K8S"
 kubectl expose deployment core-web --port=80 --target-port=5000 --type="LoadBalancer"
 ```
 
